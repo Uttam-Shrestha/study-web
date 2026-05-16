@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>NEB Class 11 Physics | Exam Cram Sheet</title>
+    <!-- Google Fonts & MathJax -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+      id="MathJax-script"
+      async
+    ></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(145deg, #f8fafc 0%, #eef2f6 100%);
+        color: #0a1e2f;
+        line-height: 1.45;
+        padding: 2rem 1.5rem;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      /* header */
+      .hero {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #1e3c72, #2b4c7c);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        letter-spacing: -0.3px;
+      }
+      .hero p {
+        font-size: 1.1rem;
+        color: #2c3e4e;
+        max-width: 700px;
+        margin: 0.5rem auto 0;
+        font-weight: 500;
+      }
+      .badge {
+        display: inline-block;
+        background: #1e3c72;
+        color: white;
+        padding: 0.2rem 0.8rem;
+        border-radius: 40px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        margin-bottom: 1rem;
+      }
+      /* section styling */
+      .section-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(0px);
+        border-radius: 2rem;
+        box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2.2rem;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      .section-header {
+        background: #ffffffcc;
+        padding: 1.2rem 2rem;
+        border-bottom: 2px solid #dce5ef;
+      }
+      .section-header h2 {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #0a2942;
+        display: inline-block;
+        border-left: 5px solid #2b6a9f;
+        padding-left: 1rem;
+      }
+      .section-content {
+        padding: 1.6rem 2rem;
+      }
+      /* formula grid */
+      .formula-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: 1.2rem;
+      }
+      .formula-item {
+        background: #ffffffdd;
+        border-radius: 1.5rem;
+        padding: 1rem 1.3rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        transition: 0.1s;
+        border: 1px solid #e9edf2;
+      }
+      .formula-item strong {
+        display: block;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #2b6a9f;
+        margin-bottom: 0.6rem;
+      }
+      .formula-item .math {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0f2b3b;
+        word-break: break-word;
+      }
+      /* reason cards */
+      .reason-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 1.5rem;
+      }
+      .reason-card {
+        background: #ffffff;
+        border-radius: 1.5rem;
+        padding: 1.2rem 1.4rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.1s ease;
+        border-left: 4px solid #2b6a9f;
+      }
+      .reason-card h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #1a4c74;
+      }
+      .reason-card p {
+        font-size: 0.95rem;
+        color: #1f3a4b;
+        margin-top: 0.4rem;
+        line-height: 1.45;
+      }
+      .reason-proof {
+        background: #f0f4f9;
+        padding: 0.6rem 0.9rem;
+        border-radius: 1rem;
+        margin-top: 0.8rem;
+        font-family: monospace;
+        font-size: 0.85rem;
+        color: #1e4663;
+        overflow-x: auto;
+      }
+      .definition-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 0.9rem;
+      }
+      .def-item {
+        background: #fefefe;
+        border-radius: 1.2rem;
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e2e8f0;
+      }
+      .def-item strong {
+        color: #0a4b6e;
+        font-weight: 700;
+      }
+      hr {
+        margin: 1rem 0;
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, #cbd5e1, transparent);
+      }
+      footer {
+        text-align: center;
+        margin-top: 2rem;
+        color: #4b6b85;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+      @media (max-width: 760px) {
+        body {
+          padding: 1rem;
+        }
+        .section-content {
+          padding: 1rem;
+        }
+        .formula-grid {
+          grid-template-columns: 1fr;
+        }
+        .reason-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+      }
+      .math-inline {
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <div class="badge">🔥 last 24h • NEB grade 11 physics</div>
+        <h1>📘 Score 50+ : Formula • Reasons • Definitions</h1>
+        <p>
+          High-yield formulas, scientific reasoning with proofs, and must‑know
+          definitions
+        </p>
+      </div>
+
+      <!-- =========================== FORMULAS SECTION =========================== -->
+      <div class="section-card">
+        <div class="section-header">
+          <h2>📐 IMP FORMULAS (Master these)</h2>
+        </div>
+        <div class="section-content">
+          <div class="formula-grid">
+            <!-- Mechanics block -->
+            <div class="formula-item">
+              <strong>🔧 Kinematics</strong>
+              <div class="math">\(v = u + at\)</div>
+              <div class="math">\(s = ut + \frac{1}{2}at^2\)</div>
+              <div class="math">\(v^2 = u^2 + 2as\)</div>
+            </div>
+            <div class="formula-item">
+              <strong>🎯 Projectile motion</strong>
+              <div class="math">
+                \(T = \frac{2u\sin\theta}{g}\) &nbsp; \(H =
+                \frac{u^2\sin^2\theta}{2g}\)
+              </div>
+              <div class="math">\(R = \frac{u^2\sin 2\theta}{g}\)</div>
+            </div>
+            <div class="formula-item">
+              <strong>⚙️ Newton & Dynamics</strong>
+              <div class="math">\(F = ma\)</div>
+              <div class="math">\(f = \mu N\) (friction)</div>
+              <div class="math">
+                \(W = Fd\cos\theta\) &nbsp; \(KE = \frac12 mv^2\) &nbsp; \(PE =
+                mgh\)
+              </div>
+              <div class="math">\(P = Fv\)</div>
+            </div>
+            <div class="formula-item">
+              <strong>💥 Elastic collision (1D)</strong>
+              <div class="math">
+                \(v_1 = \frac{m_1-m_2}{m_1+m_2}u_1 + \frac{2m_2}{m_1+m_2}u_2\)
+              </div>
+              <div class="math">
+                \(v_2 = \frac{2m_1}{m_1+m_2}u_1 + \frac{m_2-m_1}{m_1+m_2}u_2\)
+              </div>
+            </div>
+            <div class="formula-item">
+              <strong>🌀 Circular & Gravitation</strong>
+              <div class="math">\(F_c = \frac{mv^2}{r}\)</div>
+              <div class="math">
+                \(F = \frac{Gm_1m_2}{r^2}\) &nbsp; \(g_h =
+                g_0\left(1-\frac{2h}{R}\right)\)
+              </div>
+              <div class="math">
+                \(v_o = \sqrt{\frac{GM}{r}}\) &nbsp; \(v_e = \sqrt{2gR}\)
+              </div>
+            </div>
+            <div class="formula-item">
+              <strong>🎢 SHM & Elasticity</strong>
+              <div class="math">
+                \(T_{\text{spring}} = 2\pi\sqrt{\frac{m}{k}}\) &nbsp;
+                \(T_{\text{pendulum}} = 2\pi\sqrt{\frac{L}{g}}\)
+              </div>
+              <div class="math">
+                \(Y = \frac{FL}{A\Delta L}\) &nbsp; Stress = \(\frac{F}{A}\),
+                Strain = \(\frac{\Delta L}{L}\)
+              </div>
+            </div>
+            <!-- Heat & Thermo -->
+            <div class="formula-item">
+              <strong>🔥 Calorimetry</strong>
+              <div class="math">
+                \(Q = mc\Delta T\) &nbsp; \(Q = mL\) (latent heat)
+              </div>
+              <div class="math">
+                \(\Delta L = \alpha L_0 \Delta T\) &nbsp; \(\Delta V = \beta V_0
+                \Delta T\) &nbsp; \(\beta \approx 3\alpha\)
+              </div>
+            </div>
+            <div class="formula-item">
+              <strong>🌡️ Thermal Conductivity</strong>
+              <div class="math">
+                \(P = \frac{kA(T_1-T_2)}{L}\) &nbsp; Newton's cooling:
+                \(\frac{dT}{dt} \propto (T-T_0)\)
+              </div>
+            </div>
+            <!-- Optics -->
+            <div class="formula-item">
+              <strong>🔍 Lens & Mirror</strong>
+              <div class="math">
+                \(\frac{1}{f} =
+                (\mu-1)\left(\frac{1}{R_1}-\frac{1}{R_2}\right)\) &nbsp;
+                \(\frac{1}{u}+\frac{1}{v}=\frac{1}{f}\)
+              </div>
+              <div class="math">
+                \(m = -\frac{v}{u}\) &nbsp; \(\mu =
+                \frac{\sin\frac{A+D_m}{2}}{\sin\frac{A}{2}}\)
+              </div>
+            </div>
+            <div class="formula-item">
+              <strong>💡 Snell & Critical</strong>
+              <div class="math">
+                \(n_1\sin i = n_2\sin r\) &nbsp; \(\sin C = \frac{1}{\mu}\)
+              </div>
+            </div>
+            <!-- Electricity -->
+            <div class="formula-item">
+              <strong>⚡ Electricity</strong>
+              <div class="math">
+                \(V = IR\) &nbsp; \(P = VI = I^2R = \frac{V^2}{R}\)
+              </div>
+              <div class="math">
+                \(C = \frac{Q}{V}\) &nbsp; \(\frac{1}{C_s} =
+                \sum\frac{1}{C_i}\), \(C_p = \sum C_i\)
+              </div>
+              <div class="math">
+                \(F = \frac{kq_1q_2}{r^2}\) &nbsp; \(E = \frac{kq}{r^2}\) &nbsp;
+                \(\oint \vec{E}\cdot d\vec{A} =
+                \frac{Q_{\text{in}}}{\varepsilon_0}\)
+              </div>
+            </div>
+            <!-- Nuclear -->
+            <div class="formula-item">
+              <strong>☢️ Nuclear Physics</strong>
+              <div class="math">
+                \(E = \Delta m \cdot c^2\) &nbsp; \(1\,\text{amu} =
+                931.5\,\text{MeV}/c^2\)
+              </div>
+              <div class="math">
+                \(\text{Binding energy} = \Delta m \times 931\,\text{MeV}\)
+                (\(\Delta m\) in amu)
+              </div>
+              <div class="math">
+                \(\Delta m = Z m_p + (A-Z)m_n - m_{\text{nucleus}}\)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================== ELABORATED GIVE REASONS =========================== -->
+      <div class="section-card">
+        <div class="section-header">
+          <h2>🧠 “GIVE REASONS” – scientific reasoning + formula proof</h2>
+        </div>
+        <div class="section-content">
+          <div class="reason-grid">
+            <div class="reason-card">
+              <h3>1. Projectile follows a parabolic path</h3>
+              <p>
+                Horizontal motion: \(x = u\cos\theta \cdot t\) → \(t =
+                x/(u\cos\theta)\). Vertical: \(y = u\sin\theta\, t - \frac12 g
+                t^2\). Substituting gives \(y = x\tan\theta - \frac{g
+                x^2}{2u^2\cos^2\theta}\). This is a quadratic in \(x\) →
+                parabola.
+              </p>
+              <div class="reason-proof">
+                \(y = (\tan\theta)x -
+                \left(\frac{g}{2u^2\cos^2\theta}\right)x^2\) → standard parabola
+                \(y = ax - bx^2\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>2. Satellite does no work in orbit</h3>
+              <p>
+                Work \(W = \vec{F} \cdot \vec{d}\). Gravitational force is
+                centripetal, always perpendicular to instantaneous displacement
+                (tangential velocity). For circular orbit, \(\theta = 90^\circ\)
+                → \(\cos90^\circ = 0\) → \(W=0\). Energy conserved.
+              </p>
+              <div class="reason-proof">
+                \(dW = \vec{F}_g \cdot d\vec{r}\) and \(\vec{F}_g \perp
+                d\vec{r}\) → \(dW=0\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>3. Circular motion accelerates even at constant speed</h3>
+              <p>
+                Acceleration is change in velocity vector. Speed constant but
+                direction changes → centripetal acceleration \(a_c = v^2/r\)
+                directed toward centre.
+              </p>
+              <div class="reason-proof">
+                \(\vec{a} = \frac{d\vec{v}}{dt}\); magnitude \(a_c =
+                \frac{v^2}{r}\), always present in uniform circular motion.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>4. Steel bowls painted with copper at base</h3>
+              <p>
+                Copper has high thermal conductivity \(k\). Rate of heat
+                transfer \(P = kA\frac{\Delta T}{L}\). Copper base rapidly
+                conducts heat from stove to food, improving efficiency.
+              </p>
+              <div class="reason-proof">
+                \(k_{\text{copper}} \approx 400\,\text{W/m·K}\) vs steel
+                ~\(50\,\text{W/m·K}\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>5. Mud houses are cooler in summer, warmer in winter</h3>
+              <p>
+                Mud has low thermal conductivity and high heat capacity. It
+                resists heat flow (thermal lag) → interior temperature remains
+                stable.
+              </p>
+              <div class="reason-proof">
+                Low \(k\) → smaller \(P\) for same gradient; high specific heat
+                \(c\) → absorbs large heat with small \(\Delta T\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>6. Temperature constant during melting/boiling</h3>
+              <p>
+                Heat supplied is used to overcome intermolecular bonds
+                (potential energy) not to increase kinetic energy. Latent heat
+                \(Q = mL\).
+              </p>
+              <div class="reason-proof">
+                \(Q = mL_f\) or \(mL_v\); no change in \(T\) until phase
+                transition completes.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>7. Light bends when entering denser medium</h3>
+              <p>
+                Speed of light decreases in denser medium → Snell’s law:
+                \(n_1\sin i = n_2\sin r\). If \(n_2 > n_1\), \(r < i\) → bends
+                toward normal.
+              </p>
+              <div class="reason-proof">
+                \(v = c/n\); change in wavefront direction follows Fermat’s
+                principle.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>8. Two equipotential surfaces never intersect</h3>
+              <p>
+                Each surface has constant potential \(V\). If they intersect, at
+                intersection point potential would have two different values
+                simultaneously → impossible.
+              </p>
+              <div class="reason-proof">
+                If \(V_1 = V_a\) and \(V_2 = V_b\) with \(V_a\neq V_b\)
+                intersect → contradiction.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>9. Mass of nucleus &lt; sum of nucleons (mass defect)</h3>
+              <p>
+                Missing mass converted into binding energy \(E_b = \Delta m
+                c^2\) (mass-energy equivalence).
+              </p>
+              <div class="reason-proof">
+                \(\Delta m = Z m_p + (A-Z)m_n - M_{\text{nucleus}}\); \(E_b =
+                \Delta m \cdot c^2\) explains stability.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>10. Convex mirrors used in vehicles</h3>
+              <p>
+                Convex mirror provides wider field of view (diverging mirror).
+                Though image is diminished, driver sees larger area for safety.
+              </p>
+              <div class="reason-proof">
+                Field of view ∝ \(1/|f|\) (diverging). The relation \(\frac1f =
+                (n-1)(\frac1{R_1}-\frac1{R_2})\) for convex gives negative
+                \(f\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>11. Absolute zero is not zero energy</h3>
+              <p>
+                At absolute zero (0 K), atoms still have zero‑point energy due
+                to Heisenberg uncertainty principle. Motion never completely
+                stops.
+              </p>
+              <div class="reason-proof">
+                Quantum harmonic oscillator ground state energy \(E_0 = \frac12
+                \hbar\omega > 0\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>12. Rain streaks slant on car windows</h3>
+              <p>
+                Relative velocity of rain w.r.t car: \(\vec{v}_{r/c} = \vec{v}_r
+                - \vec{v}_c\). Vector sum makes raindrops appear to come at an
+                angle.
+              </p>
+              <div class="reason-proof">
+                If rain vertical \(v_r\) and car horizontal \(v_c\),
+                \(\tan\theta = v_c / v_r\) → slanted streaks.
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>13. Plane mirror can’t replace convex mirror in cars</h3>
+              <p>
+                Plane mirror gives narrow field of view (reflection law). Convex
+                mirror produces virtual, diminished image but with large angular
+                coverage.
+              </p>
+              <div class="reason-proof">
+                Field of view angle \(\phi\) for plane is limited by mirror
+                size; convex curvature increases \(\phi\).
+              </div>
+            </div>
+
+            <div class="reason-card">
+              <h3>
+                14. Dimensionally correct equation may be physically incorrect
+              </h3>
+              <p>
+                Example: \(s = ut + at^2\) is dimensionally [L] = [L] + [L] but
+                true equation is \(s = ut + \frac12 at^2\). Missing
+                dimensionless factor changes physics.
+              </p>
+              <div class="reason-proof">
+                Dimensional analysis cannot fix numerical constants;
+                experimental verification needed.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================== IMPORTANT DEFINITIONS =========================== -->
+      <div class="section-card">
+        <div class="section-header">
+          <h2>📖 DEFINITIONS (easy marks – memorize)</h2>
+        </div>
+        <div class="section-content">
+          <div class="definition-list">
+            <div class="def-item">
+              <strong>Projectile motion</strong> – motion of an object thrown
+              into space under gravity only.
+            </div>
+            <div class="def-item">
+              <strong>Conservative force</strong> – work done independent of
+              path, depends only on endpoints (e.g., gravity).
+            </div>
+            <div class="def-item">
+              <strong>Angle of repose</strong> – max slope angle where object
+              just begins to slide (\(\mu = \tan\theta\)).
+            </div>
+            <div class="def-item">
+              <strong>Angle of friction</strong> – angle whose tangent equals
+              coefficient of friction (\(\phi = \tan^{-1}\mu\)).
+            </div>
+            <div class="def-item">
+              <strong>Escape velocity</strong> – min velocity to escape planet’s
+              gravity without further propulsion.
+            </div>
+            <div class="def-item">
+              <strong>Young’s modulus</strong> – ratio of tensile stress to
+              tensile strain (\(Y = \frac{FL}{A\Delta L}\)).
+            </div>
+            <div class="def-item">
+              <strong>Coefficient of linear expansion</strong> – fractional
+              change in length per °C (\(\alpha = \frac{\Delta L}{L_0\Delta
+              T}\)).
+            </div>
+            <div class="def-item">
+              <strong>Specific heat capacity</strong> – heat required to raise
+              1 kg by 1 K (\(c = Q/(m\Delta T)\)).
+            </div>
+            <div class="def-item">
+              <strong>Latent heat of fusion</strong> – heat to change 1 kg solid
+              → liquid at constant \(T\).
+            </div>
+            <div class="def-item">
+              <strong>Thermal conductivity</strong> – rate of heat transfer per
+              unit thickness per unit temp difference (\(k\)).
+            </div>
+            <div class="def-item">
+              <strong>Critical angle</strong> – incidence angle in denser medium
+              giving refraction angle 90°.
+            </div>
+            <div class="def-item">
+              <strong>Lateral shift</strong> – perpendicular distance between
+              incident and emergent ray in glass slab.
+            </div>
+            <div class="def-item">
+              <strong>Electric potential</strong> – work done per unit positive
+              charge from infinity to a point.
+            </div>
+            <div class="def-item">
+              <strong>Capacitor</strong> – device to store electric charge and
+              energy (\(C = Q/V\)).
+            </div>
+            <div class="def-item">
+              <strong>Binding energy</strong> – energy required to disassemble
+              nucleus into nucleons.
+            </div>
+            <div class="def-item">
+              <strong>Mass defect</strong> – difference between mass of nucleus
+              and sum of its nucleon masses.
+            </div>
+            <div class="def-item">
+              <strong>Impulse</strong> – change in momentum (\(J = \Delta p = F
+              \Delta t\)).
+            </div>
+            <div class="def-item">
+              <strong>Absolute zero</strong> – lowest possible temperature (0 K
+              = −273.15 °C), particles have minimum energy.
+            </div>
+            <div class="def-item">
+              <strong>GPS (Global Positioning System)</strong> – satellite‑based
+              navigation using time signals & trilateration.
+            </div>
+            <div class="def-item">
+              <strong>Hooke’s law</strong> – stress ∝ strain within elastic
+              limit.
+            </div>
+          </div>
+          <hr />
+          <div
+            style="
+              background: #eef3fc;
+              border-radius: 1rem;
+              padding: 0.8rem 1.2rem;
+              margin-top: 0.5rem;
+            "
+          >
+            <p style="font-size: 0.85rem; font-weight: 500">
+              💡 <strong>Exam strategy:</strong> Write the formula first,
+              substitute data → partial marks guaranteed. Diagrams for
+              derivations. Attempt all questions, even if partial.
+            </p>
+          </div>
+        </div>
+      </div>
+      <footer>
+        ⚡ NEB Class 11 Physics – last‑day revision sheet • Focus on
+        high‑weightage topics • All the best!
+      </footer>
+    </div>
+  </body>
+</html>
