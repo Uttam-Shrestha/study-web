@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 Computer Science Revision Guide</title>
+    <style>
+        :root {
+            --bg: #f9f7f1;
+            --card: #ffffff;
+            --text: #2c2c2c;
+            --heading: #1a3c34;
+            --accent: #e07a5f;
+            --accent2: #3d405b;
+            --border: #e0dcd0;
+            --tag-bg: #f2e9d8;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --radius: 14px;
+            --transition: 0.25s ease;
+            --nav-height: 64px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Georgia', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            padding-top: var(--nav-height);
+            scroll-behavior: smooth;
+        }
+
+        /* ── FIXED TOP NAVBAR ────────── */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--heading);
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+        .brand .logo-icon {
+            font-size: 1.5rem;
+        }
+        .brand .uba-stha {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* ── HAMBURGER BUTTON ────────── */
+        .hamburger-btn {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+            z-index: 1100;
+            flex-shrink: 0;
+        }
+        .hamburger-btn:hover {
+            border-color: var(--accent);
+            background: #fefaf7;
+        }
+        .hamburger-btn .bar {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--heading);
+            border-radius: 3px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        /* Animate to X */
+        .hamburger-btn.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-btn.active .bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* ── OVERLAY ──────────────────── */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ── SLIDE-OUT MENU PANEL ────── */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 340px;
+            max-width: 88vw;
+            height: 100%;
+            background: #fff;
+            z-index: 1080;
+            box-shadow: -6px 0 30px rgba(0, 0, 0, 0.12);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-left: 1px solid var(--border);
+        }
+        .side-menu.active {
+            transform: translateX(0);
+        }
+        .side-menu-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 2;
+        }
+        .side-menu-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0 30px;
+            flex: 1;
+        }
+        .side-menu-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 22px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .side-menu-nav a:hover,
+        .side-menu-nav a:focus {
+            background: #fefaf5;
+            border-left-color: var(--accent);
+            color: var(--accent2);
+            outline: none;
+            padding-left: 26px;
+        }
+        .side-menu-nav a .menu-icon {
+            font-size: 1.2rem;
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* ── MAIN CONTAINER ──────────── */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        /* ── SECTION CARD ────────────── */
+        .section-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            scroll-margin-top: calc(var(--nav-height) + 20px);
+        }
+        .section-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        .section-card h2 {
+            font-size: 1.8rem;
+            color: var(--heading);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .section-card h2 .icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .section-card h3 {
+            font-size: 1.25rem;
+            color: var(--accent2);
+            margin: 22px 0 8px;
+            border-left: 4px solid var(--accent);
+            padding-left: 14px;
+        }
+        .section-card p,
+        .section-card li {
+            font-size: 1.02rem;
+            margin-bottom: 8px;
+            color: #3d3d3d;
+        }
+        .section-card ul,
+        .section-card ol {
+            padding-left: 24px;
+            margin-bottom: 12px;
+        }
+        .section-card li {
+            margin-bottom: 6px;
+        }
+
+        /* ── INFO BOXES ──────────────── */
+        .info-box {
+            background: #fefcf7;
+            border-left: 5px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 16px 0;
+            font-style: italic;
+            color: #5c4b3a;
+        }
+        .definition-box {
+            background: #f4f6f9;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 14px 0;
+            border: 1px dashed #c7cfd9;
+        }
+        .definition-box strong {
+            color: var(--accent2);
+            font-size: 1.05rem;
+        }
+
+        /* ── CODE ────────────────────── */
+        pre {
+            background: #2a2a2a;
+            color: #f0e6d3;
+            padding: 18px 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin: 14px 0;
+            line-height: 1.6;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            -webkit-overflow-scrolling: touch;
+        }
+        code.inline {
+            background: #f3ede3;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            color: #b5492d;
+        }
+
+        /* ── TABLE WRAPPER (fix overflow) ── */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .simple-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 600px;
+            /* ensures table has minimum width on small screens */;
+        }
+        .simple-table th {
+            background: var(--accent2);
+            color: #fff;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .simple-table td,
+        .simple-table th {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+        }
+        .simple-table tr:nth-child(even) td {
+            background: #fcfaf5;
+        }
+
+        /* ── TAG ─────────────────────── */
+        .tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 3px 4px;
+            color: #5c4a2e;
+            font-weight: 500;
+        }
+
+        /* ── FOOTER ──────────────────── */
+        .site-footer {
+            text-align: center;
+            color: #7a7265;
+            font-size: 0.9rem;
+            padding: 10px 20px 30px;
+        }
+
+        /* ── RESPONSIVE ──────────────── */
+        @media (max-width: 600px) {
+            .section-card {
+                padding: 20px 16px;
+            }
+            .section-card h2 {
+                font-size: 1.4rem;
+            }
+            .section-card h2 .icon {
+                font-size: 1.5rem;
+            }
+            .top-navbar {
+                padding: 0 14px;
+            }
+            .brand {
+                font-size: 0.95rem;
+                gap: 6px;
+            }
+            .brand .uba-stha {
+                font-size: 0.95rem;
+            }
+            .side-menu {
+                width: 100%;
+                max-width: 100%;
+            }
+            .container {
+                padding: 20px 10px 40px;
+                gap: 24px;
+            }
+            pre {
+                font-size: 0.78rem;
+                padding: 14px;
+            }
+            .simple-table {
+                font-size: 0.8rem;
+                min-width: 520px;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .side-menu {
+                width: 380px;
+            }
+            .container {
+                padding: 24px 16px 50px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .side-menu {
+                width: 400px;
+            }
+            .container {
+                padding: 32px 20px 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== FIXED TOP NAVBAR ========== -->
+    <header class="top-navbar" id="topNavbar">
+        <div class="brand">
+            <span class="logo-icon">📘</span>
+            <span>Revision Guide</span>
+            <span class="uba-stha">· U.B.Stha</span>
+        </div>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <!-- ========== OVERLAY ========== -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- ========== SLIDE-OUT SIDE MENU ========== -->
+    <nav class="side-menu" id="sideMenu" aria-label="Topic navigation">
+        <div class="side-menu-header">
+            📚 All Topics
+        </div>
+        <div class="side-menu-nav">
+            <a href="#gen"><span class="menu-icon">🖥️</span> Generations of Computers</a>
+            <a href="#arch"><span class="menu-icon">🏗️</span> Computer Architecture</a>
+            <a href="#memory"><span class="menu-icon">🧠</span> Buffer / Cache / RAM / ROM</a>
+            <a href="#css-types"><span class="menu-icon">🎨</span> Types of CSS</a>
+            <a href="#conversion"><span class="menu-icon">🔢</span> Number Conversion</a>
+            <a href="#complement"><span class="menu-icon">➖</span> 1's &amp; 2's Complement</a>
+            <a href="#programs"><span class="menu-icon">💻</span> Basic Programs (Sum/Formula)</a>
+            <a href="#array"><span class="menu-icon">📊</span> Array Theory &amp; Examples</a>
+            <a href="#multimedia-comp"><span class="menu-icon">🎬</span> Components of Multimedia</a>
+            <a href="#multimedia-app"><span class="menu-icon">📱</span> Applications of Multimedia</a>
+            <a href="#os"><span class="menu-icon">⚙️</span> Operating Systems</a>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container" id="mainContent">
+
+        <!-- 1. GENERATIONS OF COMPUTERS -->
+        <section id="gen" class="section-card">
+            <h2><span class="icon">🖥️</span> Generations of Computers</h2>
+            <p>A <strong>generation</strong> means a big change in the technology used to build computers. Each generation made computers smaller, faster, and cheaper.</p>
+
+            <div class="table-wrapper">
+                <table class="simple-table">
+                    <thead>
+                        <tr><th>Generation</th><th>Time Period</th><th>Main Technology</th><th>Key Feature</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>1st</strong></td><td>1940–1956</td><td>Vacuum Tubes</td><td>Very big, used a lot of electricity, slow. Example: ENIAC</td></tr>
+                        <tr><td><strong>2nd</strong></td><td>1956–1963</td><td>Transistors</td><td>Smaller, faster, cheaper. Example: IBM 1401</td></tr>
+                        <tr><td><strong>3rd</strong></td><td>1964–1971</td><td>Integrated Circuits (IC)</td><td>Many transistors on one chip. Keyboards and monitors appeared.</td></tr>
+                        <tr><td><strong>4th</strong></td><td>1971–Present</td><td>Microprocessors</td><td>Whole CPU on one chip. Personal computers (PCs) became common.</td></tr>
+                        <tr><td><strong>5th</strong></td><td>Present &amp; Future</td><td>Artificial Intelligence (AI)</td><td>Machines that learn, voice recognition, self-driving cars.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box">💡 <strong>Easy memory trick:</strong> "Very Tiny Insects Make AI" → Vacuum Tubes, Transistors, IC, Microprocessor, AI.</div>
+        </section>
+
+        <!-- 2. COMPUTER ARCHITECTURE -->
+        <section id="arch" class="section-card">
+            <h2><span class="icon">🏗️</span> Computer Architecture (Von Neumann)</h2>
+            <p><strong>Computer architecture</strong> means how the parts of a computer are arranged and how they talk to each other. The most famous design is the <strong>Von Neumann Architecture</strong>.</p>
+            <h3>Main Parts of Von Neumann Architecture</h3>
+            <ul>
+                <li><strong>Input Unit:</strong> Brings data inside (keyboard, mouse).</li>
+                <li><strong>Central Processing Unit (CPU):</strong> The brain. Has two parts:
+                    <ul>
+                        <li><strong>Control Unit (CU):</strong> Directs all operations like a traffic police.</li>
+                        <li><strong>Arithmetic Logic Unit (ALU):</strong> Does math (+ , –) and logic (AND, OR).</li>
+                    </ul>
+                </li>
+                <li><strong>Memory Unit:</strong> Stores data and instructions (RAM).</li>
+                <li><strong>Output Unit:</strong> Shows results (monitor, printer).</li>
+            </ul>
+            <div class="definition-box">
+                <strong>🔑 Key idea:</strong> Both <strong>data</strong> and <strong>instructions</strong> are stored in the <strong>same memory</strong>. This is called <em>stored program concept</em>.
+            </div>
+            <p>Example: You type 2+2 on keyboard (input) → CPU calculates (ALU) using instructions from memory → Monitor shows 4 (output).</p>
+        </section>
+
+        <!-- 3. BUFFER, CACHE, RAM, ROM -->
+        <section id="memory" class="section-card">
+            <h2><span class="icon">🧠</span> Buffer, Cache, RAM, and ROM</h2>
+            <p>These are all types of <strong>memory</strong> used in a computer. They differ in speed, size, and purpose.</p>
+
+            <h3>1. Buffer</h3>
+            <p>A <strong>temporary waiting area</strong> in memory. It holds data while it moves from one place to another.</p>
+            <div class="info-box">📌 <strong>Example:</strong> When you watch a YouTube video, the grey bar that loads ahead is stored in a <strong>buffer</strong>. It prevents the video from stopping.</div>
+
+            <h3>2. Cache</h3>
+            <p>A <strong>super-fast, small memory</strong> inside or very near the CPU. It stores copies of frequently used data so the CPU doesn't have to go to the slower RAM every time.</p>
+            <div class="info-box">📌 <strong>Example:</strong> Think of it as your desk drawer. You keep your most-used pen there instead of going to the cupboard (RAM) every time.</div>
+
+            <h3>3. RAM (Random Access Memory)</h3>
+            <p><strong>Main working memory.</strong> It is <strong>volatile</strong> – data disappears when power is off. It holds the operating system, open apps, and current work.</p>
+            <div class="info-box">📌 <strong>Example:</strong> When you open Notepad and type, your text is in RAM. If the computer turns off before saving, the text is lost.</div>
+
+            <h3>4. ROM (Read Only Memory)</h3>
+            <p><strong>Permanent memory.</strong> It is <strong>non-volatile</strong> – data stays even without power. It contains the instructions to start the computer (BIOS/firmware).</p>
+            <div class="info-box">📌 <strong>Example:</strong> When you press the power button, ROM tells the computer how to wake up and load the operating system.</div>
+
+            <div class="table-wrapper">
+                <table class="simple-table">
+                    <tr><th>Feature</th><th>RAM</th><th>ROM</th></tr>
+                    <tr><td>Full Form</td><td>Random Access Memory</td><td>Read Only Memory</td></tr>
+                    <tr><td>Data Loss on Power Off?</td><td>Yes (Volatile)</td><td>No (Non-Volatile)</td></tr>
+                    <tr><td>Speed</td><td>Faster</td><td>Slower than RAM</td></tr>
+                    <tr><td>Usage</td><td>Running programs</td><td>Startup instructions</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. TYPES OF CSS -->
+        <section id="css-types" class="section-card">
+            <h2><span class="icon">🎨</span> Types of CSS (Cascading Style Sheets)</h2>
+            <p>CSS is used to style HTML pages. There are <strong>three ways</strong> to add CSS to a webpage.</p>
+
+            <h3>1. Inline CSS</h3>
+            <p>Written directly inside an HTML tag using the <code class="inline">style</code> attribute.</p>
+            <pre>&lt;p style="color: red; font-size: 20px;"&gt;Hello&lt;/p&gt;</pre>
+            <p><strong>Use when:</strong> You need a quick, one-time style for a single element.</p>
+
+            <h3>2. Internal (Embedded) CSS</h3>
+            <p>Written inside the <code class="inline">&lt;style&gt;</code> tag in the <code class="inline">&lt;head&gt;</code> section of the HTML page.</p>
+            <pre>&lt;head&gt;
+                &lt;style&gt;
+                p { color: blue; }
+            &lt;/style&gt;
+        &lt;/head&gt;</pre>
+        <p><strong>Use when:</strong> Styling a single webpage with its own unique design.</p>
+
+        <h3>3. External CSS</h3>
+        <p>Written in a <strong>separate file</strong> (like <code class="inline">style.css</code>) and linked to the HTML page.</p>
+        <pre>&lt;head&gt;
+            &lt;link rel="stylesheet" href="style.css"&gt;
+        &lt;/head&gt;</pre>
+        <p><strong>Use when:</strong> You want one style sheet to control many pages (best practice).</p>
+    </section>
+
+    <!-- 5. NUMBER SYSTEM CONVERSION -->
+    <section id="conversion" class="section-card">
+        <h2><span class="icon">🔢</span> Number System Conversion</h2>
+        <p>Computers understand only <strong>binary</strong> (0 and 1). We often convert between Decimal, Binary, Octal, and Hexadecimal.</p>
+
+        <h3>Common Number Systems</h3>
+        <div class="table-wrapper">
+            <table class="simple-table">
+                <tr><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th></tr>
+                <tr><td>Decimal</td><td>10</td><td>0 to 9</td><td>25</td></tr>
+                <tr><td>Binary</td><td>2</td><td>0, 1</td><td>11001</td></tr>
+                <tr><td>Octal</td><td>8</td><td>0 to 7</td><td>31</td></tr>
+                <tr><td>Hexadecimal</td><td>16</td><td>0 to 9, A to F</td><td>19</td></tr>
+            </table>
+        </div>
+
+        <h3>Decimal to Binary (Example: 13)</h3>
+        <ol>
+            <li>Divide 13 by 2 → quotient 6, <strong>remainder 1</strong></li>
+            <li>Divide 6 by 2 → quotient 3, <strong>remainder 0</strong></li>
+            <li>Divide 3 by 2 → quotient 1, <strong>remainder 1</strong></li>
+            <li>Divide 1 by 2 → quotient 0, <strong>remainder 1</strong></li>
+            <li>Read remainders from bottom to top: <strong>1101</strong></li>
+        </ol>
+        <p>So, <strong>13 in decimal = 1101 in binary</strong>.</p>
+
+        <h3>Binary to Decimal (Example: 1101)</h3>
+        <p>Multiply each bit by powers of 2 from right (start at 2⁰):</p>
+        <p>1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = <strong>13</strong></p>
+    </section>
+
+    <!-- 6. 1's AND 2's COMPLEMENT -->
+    <section id="complement" class="section-card">
+        <h2><span class="icon">➖</span> 1's Complement and 2's Complement</h2>
+        <p>These are methods to represent <strong>negative numbers</strong> in binary. Computers use <strong>2's complement</strong> most of the time.</p>
+
+        <h3>1's Complement</h3>
+        <p><strong>Flip all bits:</strong> change 0 to 1 and 1 to 0.</p>
+        <div class="definition-box">
+            <strong>Example:</strong> Binary for 5 is <code class="inline">0101</code> (using 4 bits).<br>
+            1's complement of 5 = <code class="inline">1010</code> (this represents –5 in 1's complement form).
+        </div>
+
+        <h3>2's Complement</h3>
+        <p><strong>Step 1:</strong> Find 1's complement (flip bits).<br>
+        <strong>Step 2:</strong> Add 1 to the flipped bits.</p>
+        <div class="definition-box">
+            <strong>Example:</strong> For 5 (<code class="inline">0101</code>):<br>
+            1's complement = <code class="inline">1010</code><br>
+            Add 1 = <code class="inline">1010 + 1 = 1011</code><br>
+            So, <strong>–5 in 2's complement is 1011</strong>.
+        </div>
+        <div class="info-box">💡 <strong>Why 2's complement is better:</strong> There is only one representation for zero (no negative zero problem). Addition and subtraction become very simple for the CPU.</div>
+    </section>
+
+    <!-- 7. BASIC PROGRAMS (SUM FORMULA TYPE) -->
+    <section id="programs" class="section-card">
+        <h2><span class="icon">💻</span> Basic Programs – Sum & Formula Type</h2>
+        <p>These are simple programs that take input, do a calculation using a formula, and show output. They are usually the first programs you learn.</p>
+
+        <h3>1. Sum of Two Numbers</h3>
+        <p><strong>Formula:</strong> <code class="inline">sum = a + b</code></p>
+        <pre>// C program example
+            #include &lt;stdio.h&gt;
+            int main() {
+                int a = 10, b = 20;
+                int sum = a + b;
+                printf("Sum is: %d", sum);  // Output: Sum is: 30
+                return 0;
+            }</pre>
+
+            <h3>2. Area of a Circle</h3>
+            <p><strong>Formula:</strong> <code class="inline">area = π × r²</code></p>
+            <pre>float radius = 5.0;
+                float area = 3.1416 * radius * radius;
+                printf("Area: %.2f", area);  // Output: Area: 78.54</pre>
+
+                <h3>3. Simple Interest</h3>
+                <p><strong>Formula:</strong> <code class="inline">SI = (P × T × R) / 100</code></p>
+                <pre>float P = 1000, T = 2, R = 5;
+                    float SI = (P * T * R) / 100;
+                    printf("Simple Interest: %.2f", SI);  // Output: 100.00</pre>
+
+                    <h3>4. Celsius to Fahrenheit</h3>
+                    <p><strong>Formula:</strong> <code class="inline">F = (C × 9/5) + 32</code></p>
+                    <pre>float celsius = 37;
+                        float fahr = (celsius * 9.0/5.0) + 32;
+                        printf("Fahrenheit: %.2f", fahr);  // Output: 98.60</pre>
+                    </section>
+
+                    <!-- 8. ARRAY THEORY AND EXAMPLES -->
+                    <section id="array" class="section-card">
+                        <h2><span class="icon">📊</span> Array – Theory and Examples</h2>
+                        <p>An <strong>array</strong> is a collection of items of the <strong>same data type</strong> stored in <strong>contiguous (side-by-side) memory locations</strong>. Think of it as a row of lockers, each with a number (index).</p>
+
+                        <h3>Key Features of an Array</h3>
+                        <ul>
+                            <li><strong>Fixed size:</strong> Once you create an array of size 5, you cannot change it to size 10 easily.</li>
+                            <li><strong>Same data type:</strong> All elements must be of the same type (all integers, or all floats).</li>
+                            <li><strong>Index starts at 0:</strong> The first element is at index 0, second at index 1, and so on.</li>
+                            <li><strong>Random access:</strong> You can directly access any element using its index, like <code class="inline">arr[3]</code>.</li>
+                        </ul>
+
+                        <h3>Example: Storing 5 Marks</h3>
+                        <pre>#include &lt;stdio.h&gt;
+                            int main() {
+                                // Declare and initialize an array of 5 integers
+                                int marks[5] = {85, 72, 90, 68, 88};
+
+                                // Access and print each element
+                                for(int i = 0; i &lt; 5; i++) {
+                                    printf("Student %d got %d marks.\n", i+1, marks[i]);
+                                }
+
+                                // Calculate average
+                                int sum = 0;
+                                for(int i = 0; i &lt; 5; i++) {
+                                    sum = sum + marks[i];
+                                }
+                                float avg = sum / 5.0;
+                                printf("Average marks: %.2f", avg);
+                                return 0;
+                            }</pre>
+                            <p><strong>Output:</strong> Student 1 got 85 marks... Average marks: 80.60</p>
+
+                            <div class="definition-box">
+                                <strong>🧠 Visualizing the array in memory:</strong><br>
+                                Index: &nbsp;&nbsp; [0] &nbsp; [1] &nbsp; [2] &nbsp; [3] &nbsp; [4]<br>
+                                Value: &nbsp; | 85 | 72 | 90 | 68 | 88 |
+                            </div>
+                        </section>
+
+                        <!-- 9. COMPONENTS OF MULTIMEDIA -->
+                        <section id="multimedia-comp" class="section-card">
+                            <h2><span class="icon">🎬</span> Components of Multimedia</h2>
+                            <p><strong>Multimedia</strong> means using more than one type of media to share information. The main components are:</p>
+
+                            <h3>1. Text</h3>
+                            <p>The most basic part. Words, headings, paragraphs. It gives the main message.</p>
+                            <span class="tag">Example: Subtitles in a video, captions on an image</span>
+
+                            <h3>2. Graphics / Images</h3>
+                            <p>Still pictures, drawings, photographs. They make content visually appealing.</p>
+                            <span class="tag">Example: A photo of a lion in a wildlife presentation</span>
+
+                            <h3>3. Audio</h3>
+                            <p>Sound – speech, music, or sound effects. It adds emotion and clarity.</p>
+                            <span class="tag">Example: Background music in a game, narration in a tutorial</span>
+
+                            <h3>4. Video</h3>
+                            <p>Moving images. A sequence of pictures shown quickly to create motion.</p>
+                            <span class="tag">Example: A recorded lecture, a movie clip</span>
+
+                            <h3>5. Animation</h3>
+                            <p>Creating the illusion of movement by displaying drawings or models in sequence.</p>
+                            <span class="tag">Example: Cartoon characters moving, a spinning 3D logo</span>
+
+                            <div class="info-box">🎯 <strong>Multimedia = Text + Graphics + Audio + Video + Animation working together.</strong></div>
+                        </section>
+
+                        <!-- 10. APPLICATIONS OF MULTIMEDIA -->
+                        <section id="multimedia-app" class="section-card">
+                            <h2><span class="icon">📱</span> Applications of Multimedia</h2>
+                            <p>Multimedia is everywhere! Here are key areas where it is used:</p>
+
+                            <div class="table-wrapper">
+                                <table class="simple-table">
+                                    <tr><th>Field</th><th>How Multimedia is Used</th><th>Example</th></tr>
+                                    <tr><td><strong>Education</strong></td><td>Interactive lessons, e-learning, video tutorials</td><td>Khan Academy videos, smart boards in classrooms</td></tr>
+                                    <tr><td><strong>Entertainment</strong></td><td>Movies, video games, music streaming</td><td>Netflix, Spotify, PlayStation games</td></tr>
+                                    <tr><td><strong>Business</strong></td><td>Presentations, advertisements, product demos</td><td>PowerPoint slides with video, online ads</td></tr>
+                                    <tr><td><strong>Healthcare</strong></td><td>Medical imaging, virtual surgeries, patient education</td><td>MRI scans viewed on screen, anatomy apps</td></tr>
+                                    <tr><td><strong>Websites</strong></td><td>Making websites interactive and engaging</td><td>A news site with embedded videos and photo galleries</td></tr>
+                                    <tr><td><strong>Virtual Reality (VR)</strong></td><td>Immersive 3D environments</td><td>VR headset training for pilots</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-box">🌍 <strong>In short:</strong> Anywhere you see text, images, sound, and video combined to share a message – that is a multimedia application.</div>
+                        </section>
+
+                        <!-- 11. TYPES OF OPERATING SYSTEMS AND FUNCTIONS -->
+                        <section id="os" class="section-card">
+                            <h2><span class="icon">⚙️</span> Types of Operating Systems and Their Functions</h2>
+                            <p>An <strong>Operating System (OS)</strong> is the main software that manages all hardware and software on a computer. It acts as a bridge between the user and the computer hardware.</p>
+
+                            <h3>Core Functions of an OS</h3>
+                            <ol>
+                                <li><strong>Process Management:</strong> Handles running programs (processes), decides which one uses the CPU and for how long.</li>
+                                <li><strong>Memory Management:</strong> Allocates RAM space to different programs and frees it when done.</li>
+                                <li><strong>File Management:</strong> Organizes files and folders on storage drives (creating, deleting, reading files).</li>
+                                <li><strong>Device Management:</strong> Controls input/output devices (printer, keyboard, mouse) through drivers.</li>
+                                <li><strong>Security:</strong> Protects data with passwords, user accounts, and access permissions.</li>
+                                <li><strong>User Interface:</strong> Provides a way for users to interact – either Graphical (GUI) or Command Line (CLI).</li>
+                            </ol>
+
+                            <h3>Types of Operating Systems</h3>
+                            <div class="table-wrapper">
+                                <table class="simple-table">
+                                    <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+                                    <tr><td><strong>Batch OS</strong></td><td>Users don't interact directly. Jobs are collected in batches and processed together.</td><td>Old IBM mainframes (payroll processing)</td></tr>
+                                    <tr><td><strong>Time-Sharing OS</strong></td><td>CPU switches rapidly between users, giving each a small time slice. Everyone feels they have the whole computer.</td><td>Unix, Linux servers</td></tr>
+                                    <tr><td><strong>Distributed OS</strong></td><td>Multiple computers connected together work as one system, sharing resources.</td><td>Google's search infrastructure, cloud systems</td></tr>
+                                    <tr><td><strong>Real-Time OS (RTOS)</strong></td><td>Responds to input instantly within a strict time limit. Used where delay is unacceptable.</td><td>Airbag systems in cars, pacemakers, robots</td></tr>
+                                    <tr><td><strong>Mobile OS</strong></td><td>Designed for smartphones and tablets, touch-friendly, manages battery and connectivity.</td><td>Android, iOS</td></tr>
+                                    <tr><td><strong>Desktop OS</strong></td><td>For personal computers, supports a wide range of software and hardware.</td><td>Windows, macOS, Ubuntu Linux</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-box">💡 <strong>Remember:</strong> An OS is like the <strong>manager of a company</strong>. It doesn't do the actual work (like writing a document), but it makes sure every department (hardware/software) works together smoothly.</div>
+                        </section>
+
+                    </main>
+
+                    <!-- ========== FOOTER ========== -->
+                    <footer class="site-footer">
+                        <p>📘 Computer Science Revision Guide — Made with simple words for easy learning. Keep revising! 🚀</p>
+                    </footer>
+
+                    <!-- ========== JAVASCRIPT FOR HAMBURGER MENU ========== -->
+                    <script>
+                        (function() {
+                            const hamburgerBtn = document.getElementById('hamburgerBtn');
+                            const sideMenu = document.getElementById('sideMenu');
+                            const menuOverlay = document.getElementById('menuOverlay');
+                            const sideMenuLinks = sideMenu.querySelectorAll('a');
+
+                            function openMenu() {
+                                sideMenu.classList.add('active');
+                                menuOverlay.classList.add('active');
+                                hamburgerBtn.classList.add('active');
+                                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                                document.body.style.overflow = 'hidden';
+                            }
+
+                            function closeMenu() {
+                                sideMenu.classList.remove('active');
+                                menuOverlay.classList.remove('active');
+                                hamburgerBtn.classList.remove('active');
+                                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                                document.body.style.overflow = '';
+                            }
+
+                            function toggleMenu() {
+                                if (sideMenu.classList.contains('active')) {
+                                    closeMenu();
+                                } else {
+                                    openMenu();
+                                }
+                            }
+
+                            hamburgerBtn.addEventListener('click', toggleMenu);
+                            menuOverlay.addEventListener('click', closeMenu);
+
+                            // Close menu when any nav link is clicked
+                            sideMenuLinks.forEach(link => {
+                                link.addEventListener('click', function() {
+                                    closeMenu();
+                                });
+                            });
+
+                            // Close menu on Escape key
+                            document.addEventListener('keydown', function(e) {
+                                if (e.key === 'Escape' && sideMenu.classList.contains('active')) {
+                                    closeMenu();
+                                    hamburgerBtn.focus();
+                                }
+                            });
+
+                            // Prevent body scroll when menu is open (touch devices)
+                            sideMenu.addEventListener('touchmove', function(e) {
+                                // Allow scroll inside the menu
+                            }, { passive: true });
+                        })();
+                    </script>
+
+                </body>
+                </html>
